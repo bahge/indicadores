@@ -1,0 +1,6 @@
+.env
+/app/arquivos
+/app/composer.lock
+/doc/MONGO.md
+/app/src/Infra/Connection/MongoConnection.php
+/app/src/Infra/Connection/MysqlConnection.php

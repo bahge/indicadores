@@ -1,0 +1,22 @@
+{
+    "name": "bahge/app",
+    "description": "Autoload básico em docker.",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Bahge\\App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Leandro Costa Garcia",
+            "email": "leandrobage@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+        "mongodb/mongodb": "^1.13",
+        "slim/psr7": "^1.5",
+        "slim/slim": "4.*"
+    }
+}
