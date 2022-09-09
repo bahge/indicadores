@@ -6,8 +6,8 @@ namespace Bahge\App\Infra\Cli\Bin;
 
 use PDO;
 use Exception;
-use Bahge\App\Domain\UseCases\LoadUserById\LoadUserById;
-use Bahge\App\Infra\Repositories\MySQL\PdoLoadUserByIdRepository;
+use Bahge\App\Domain\User\UseCases\LoadUserById\LoadUserById;
+use Bahge\App\Infra\Repositories\MySQL\User\PdoLoadUserByIdRepository;
 
 final class ReadUserByIdBin
 {

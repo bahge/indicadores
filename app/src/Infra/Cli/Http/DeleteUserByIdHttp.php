@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bahge\App\Infra\Cli\Http;
 
 use PDO;
-use Bahge\App\Domain\UseCases\DeleteUserById\DeleteUserById;
-use Bahge\App\Infra\Repositories\MySQL\PdoDeleteUserByIdRepository;
+use Bahge\App\Domain\User\UseCases\DeleteUserById\DeleteUserById;
+use Bahge\App\Infra\Repositories\MySQL\User\PdoDeleteUserByIdRepository;
 
 final class DeleteUserByIdHttp
 {

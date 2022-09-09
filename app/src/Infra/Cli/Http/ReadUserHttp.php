@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bahge\App\Infra\Cli\Http;
 
 use PDO;
-use Bahge\App\Domain\UseCases\LoadUser\LoadUser;
-use Bahge\App\Infra\Repositories\MySQL\PdoLoadUserRepository;
+use Bahge\App\Domain\User\UseCases\LoadUser\LoadUser;
+use Bahge\App\Infra\Repositories\MySQL\User\PdoLoadUserRepository;
 
 final class ReadUserHttp
 {

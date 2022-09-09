@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace Bahge\App\Infra\Cli\Http;
 
 use PDO;
-use Bahge\App\Domain\User\UseCases\LoadUserById\LoadUserById;
-use Bahge\App\Infra\Repositories\MySQL\User\PdoLoadUserByIdRepository;
+use Bahge\App\Domain\User\UseCases\LoadUserByEmail\LoadUserByEmail;
+use Bahge\App\Infra\Repositories\MySQL\User\PdoLoadUserByEmailRepository;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
-final class ReadUserByIdHttp
+final class ReadUserByEmailHttp
 {
-    private PdoLoadUserByIdRepository $repository;
-    private LoadUserById $usercase;
-    private int $id;
+    private PdoLoadUserByEmailRepository $repository;
+    private LoadUserByEmail $usercase;
+    private Request $request;
 
     public function __construct(
-        PDO $connection, int $id
+        PDO $connection, Request $request
     ) {
-        $this->id = (int) $id;
-        $this->repository = new PdoLoadUserByIdRepository($connection);
-        $this->usercase = new LoadUserById($this->repository, $this->id);
+        $this->request = $request;
+        $this->repository = new PdoLoadUserByEmailRepository($connection);
+        $this->usercase = new LoadUserByEmail($this->repository, $this->request);
     }
 
     public function handle():array

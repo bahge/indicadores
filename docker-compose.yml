@@ -11,7 +11,7 @@ services:
         volumes:
             - "${VOLUME_APP}:/var/www"
         networks:
-            - app-network
+            - app-network-auth
         extra_hosts:
             - "host.docker.internal:host-gateway"
 
@@ -25,7 +25,7 @@ services:
             - "${VOLUME_APP}:/var/www"
             - "${VOLUME_NGINX_CONFIG}:/etc/nginx/conf.d/"
         networks:
-            - app-network
+            - app-network-auth
 
     # MySQL database service
     db:
@@ -44,7 +44,7 @@ services:
         volumes:
             - "${VOLUME_MYSQL_DB}:/var/lib/mysql"
         networks:
-            - app-network
+            - app-network-auth
 
     # PHPMyAdmin database service
     phpmyadmin:
@@ -58,47 +58,8 @@ services:
         ports:
             - "${PORT_PHPMYADMIN}:80"
         networks:
-            - app-network
-    
-    # Mongo database service
-    mongo:
-        image: mongo:5.0
-        container_name: mongo
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: ${DB_MONGO_USERNAME}
-            MONGO_INITDB_ROOT_PASSWORD: ${DB_MONGO_PASSWORD}
-        env_file:
-            - ./.env
-        restart: unless-stopped
-        ports:
-            - "${PORT_MONGO}:${PORT_MONGO}"
-        volumes:
-            - "${VOLUME_MONGO_DB}/db:/data/db"
-            - "${VOLUME_MONGO_DB}/dev.archive:/Databases/dev.archive"
-            - "${VOLUME_MONGO_DB}/production:/Databases/production"
-        networks:
-            - app-network
-
-    # Mongo Express service
-    mongo-express:
-        image: mongo-express
-        container_name: mexpress
-        environment:
-            ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_MONGO_USERNAME}
-            ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_MONGO_PASSWORD}
-            ME_CONFIG_MONGODB_URL: "mongodb://${DB_MONGO_USERNAME}:${DB_MONGO_PASSWORD}@mongo:${PORT_MONGO}/?authSource=admin"
-            ME_CONFIG_BASICAUTH_USERNAME: ${MEXPRESS_USERNAME}
-            ME_CONFIG_BASICAUTH_PASSWORD: ${MEXPRESS_PASSWORD}
-        env_file:
-            - ./.env
-        links:
-            - mongo
-        restart: unless-stopped
-        ports:
-            - "${PORT_MONGO_EXPRESS}:${PORT_MONGO_EXPRESS}"
-        networks:
-            - app-network
+            - app-network-auth
             
 networks:
-    app-network:
+    app-network-auth:
         driver: bridge
