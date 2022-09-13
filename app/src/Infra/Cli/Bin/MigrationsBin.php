@@ -6,7 +6,7 @@ namespace Bahge\App\Infra\Cli\Bin;
 
 use PDO;
 use Exception;
-use Bahge\App\Domain\UseCases\Migrations\Migrations;
+use Bahge\App\Domain\User\UseCases\Migrations\Migrations;
 use Bahge\App\Infra\Repositories\MySQL\Migrations\PdoMigrationsRepository;
 
 final class MigrationsBin

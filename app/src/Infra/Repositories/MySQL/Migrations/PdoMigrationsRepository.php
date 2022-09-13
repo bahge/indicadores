@@ -7,7 +7,7 @@ namespace Bahge\App\Infra\Repositories\MySQL\Migrations;
 use PDO;
 use PDOException;
 use DomainException;
-use Bahge\App\Domain\Repositories\MigrationsRepository;
+use Bahge\App\Domain\User\Repositories\MigrationsRepository;
 
 final class PdoMigrationsRepository implements MigrationsRepository
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Bahge\App\Infra\Cli\Http;
 
-use Bahge\App\Domain\UseCases\UpdateUserById\InputBoundaryUpdateUser;
-use Bahge\App\Domain\UseCases\UpdateUserById\UpdateUserById;
-use Bahge\App\Infra\Repositories\MySQL\PdoUpdateUserByIdRepository;
+use Bahge\App\Domain\User\UseCases\UpdateUserById\InputBoundaryUpdateUser;
+use Bahge\App\Domain\User\UseCases\UpdateUserById\UpdateUserById;
+use Bahge\App\Infra\Repositories\MySQL\User\PdoUpdateUserByIdRepository;
 use PDO;
 use Psr\Http\Message\ServerRequestInterface as Request;
 

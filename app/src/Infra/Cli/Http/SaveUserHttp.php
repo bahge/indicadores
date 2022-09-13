@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bahge\App\Infra\Cli\Http;
 
 use PDO;
-use Bahge\App\Domain\UseCases\SaveUser\SaveUser;
+use Bahge\App\Domain\User\UseCases\SaveUser\SaveUser;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Bahge\App\Domain\UseCases\SaveUser\InputBoundarySaveUser;
-use Bahge\App\Infra\Repositories\MySQL\PdoSaveUserRepository;
+use Bahge\App\Domain\User\UseCases\SaveUser\InputBoundarySaveUser;
+use Bahge\App\Infra\Repositories\MySQL\User\PdoSaveUserRepository;
 
 final class SaveUserHttp
 {

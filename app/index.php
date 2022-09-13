@@ -9,10 +9,14 @@ use Bahge\App\Infra\Connection\MysqlConnection;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Bahge\App\Infra\Cli\Http\DeleteUserByIdHttp;
 use Bahge\App\Infra\Cli\Http\UpdateUserByIdHttp;
+use Bahge\App\Infra\Cli\Http\ReadUserByEmailHttp;
+use Bahge\App\Infra\Config\Dotenv;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 require __DIR__ . '/vendor/autoload.php';
+
+Dotenv::setEnviroments(__DIR__);
 
 $app = AppFactory::create();
 $app->addRoutingMiddleware();
@@ -44,6 +48,19 @@ $app->get('/equipe', function (Request $request, Response $response, $args) {
 
 });
 
+$app->get('/cfg', function (Request $request, Response $response, $args) {
+
+  $output = [
+    'data' => [
+      'jwt_secret' => getenv("JWT_SECRET")
+    ], 
+    'code' => 200
+  ];
+
+  return makeResponse($output, $response);
+
+});
+
 $app->get('/equipe/{id}', function (Request $request, Response $response, $args) {
 
   $cfg_pdo = new MysqlConnection();
@@ -53,6 +70,17 @@ $app->get('/equipe/{id}', function (Request $request, Response $response, $args)
 
   return makeResponse($output, $response); 
 
+});
+
+$app->post('/login', function (Request $request, Response $response, $args) {
+  
+    $cfg_pdo = new MysqlConnection();
+    $readUserByEmailHttp = new ReadUserByEmailHttp($cfg_pdo->getConnection(), $request);
+  
+    $output = $readUserByEmailHttp->handle();
+  
+    return makeResponse($output, $response); 
+  
 });
 
 $app->delete('/equipe/{id}', function (Request $request, Response $response, $args) {
