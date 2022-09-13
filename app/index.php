@@ -1,10 +1,12 @@
 <?php
 
 use Slim\Factory\AppFactory;
+use PhpAmqpLib\Message\AMQPMessage;
 use Bahge\App\Infra\Cli\Http\ReadUserHttp;
 use Bahge\App\Infra\Cli\Http\SaveUserHttp;
 use Bahge\App\Infra\Cli\Http\ReadUserByIdHttp;
 use Bahge\App\Infra\Connection\MysqlConnection;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Bahge\App\Infra\Cli\Http\DeleteUserByIdHttp;
 use Bahge\App\Infra\Cli\Http\UpdateUserByIdHttp;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -34,6 +36,8 @@ $app->get('/equipe', function (Request $request, Response $response, $args) {
   $cfg_pdo = new MysqlConnection();
   $readUserHttp = new ReadUserHttp($cfg_pdo->getConnection());
   
+  createMessage("Chamou equipe");
+
   $output = $readUserHttp->handle();
 
   return makeResponse($output, $response);
@@ -95,4 +99,20 @@ function makeResponse(array $output, Response $response)
   return $response
     ->withHeader('Content-Type', 'application/json')
     ->withStatus($output['code']);
+}
+
+function createMessage(string $msg) {
+   
+  $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'pass', '/');
+  $channel = $connection->channel();
+   
+  $channel->queue_declare('queue_master', false, false, false, false);
+   
+  $msg = new AMQPMessage($msg);
+   
+  $channel->basic_publish($msg, '', 'queue_master');
+   
+  $channel->close();
+  $connection->close();
+
 }
