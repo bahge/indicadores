@@ -8,6 +8,7 @@ RUN apt-get install -y zip
 
 RUN docker-php-ext-configure zip
 RUN docker-php-ext-install zip
+RUN docker-php-ext-install sockets
 
 RUN docker-php-ext-install pdo pdo_mysql
 
