@@ -4,3 +4,5 @@
 /doc/MONGO.md
 /app/src/Infra/Connection/MongoConnection.php
 /app/src/Infra/Connection/MysqlConnection.php
+/volumes/rabbitmq/data/*
+/volumes/rabbitmq/log/*
