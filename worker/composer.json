@@ -1,0 +1,17 @@
+{
+    "name": "bahge/worker",
+    "autoload": {
+        "psr-4": {
+            "Bahge\\Worker\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Leandro Garcia",
+            "email": "leandrobage@gmail.com"
+        }
+    ],
+    "require": {
+        "php-amqplib/php-amqplib": "^3.2"
+    }
+}
