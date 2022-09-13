@@ -98,6 +98,34 @@ services:
             - "${PORT_MONGO_EXPRESS}:${PORT_MONGO_EXPRESS}"
         networks:
             - app-network
+    
+    # RabbitMq service
+    rabbitmq:
+        image: rabbitmq:3.8.25-management-alpine
+        container_name: rabbitmq
+        ports:
+            - "${PORT_RABBITMQ}:${PORT_RABBITMQ}"
+            - "${PORT_RABBITMQ_MANAGER}:${PORT_RABBITMQ_MANAGER}"
+        environment:
+            RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME}
+            RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+        volumes:
+            - "${VOLUME_RABBITMQ}/data/:/var/lib/rabbitmq/"
+            - "${VOLUME_RABBITMQ}/log/:/var/log/rabbitmq/"
+        networks:
+            - app-network
+    
+    # PHP service worker
+    worker:
+        build:
+            context: ./docker/php8.1-fpm
+            dockerfile: Dockerfile
+        container_name: php-worker
+        working_dir: /var/www/
+        volumes:
+            - "./worker:/var/www"
+        networks:
+            - app-network
             
 networks:
     app-network:
