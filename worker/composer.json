@@ -1,5 +1,6 @@
 {
     "name": "bahge/worker",
+    "description": "Worker do rabbitmq.",
     "autoload": {
         "psr-4": {
             "Bahge\\Worker\\": "src/"
@@ -12,6 +13,6 @@
         }
     ],
     "require": {
-        "php-amqplib/php-amqplib": "^3.2"
+        "php-amqplib/php-amqplib": "3.2"
     }
 }
